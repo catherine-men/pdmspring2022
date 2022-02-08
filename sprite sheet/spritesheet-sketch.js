@@ -1,51 +1,48 @@
-let character;
-let character2;
+let spriteSheet;
+let spriteSheet2;
+let spriteSheet3;
+let character = [];
+let count = 10;
 
 function preload() {
   spriteSheet = loadImage("SpelunkyGuy.png");
   spriteSheet2 = loadImage("Green.png");
   spriteSheet3 = loadImage("RoundGirl.png");
-  spriteSheet4 = loadImage("Yellow.png");
 }
 
 function setup() {
   createCanvas(600, 600);
   imageMode(CENTER);
 
-  character = new Character(spriteSheet, 0, 300);
-  character2 = new Character(spriteSheet2, 300, 300);
-  character3 = new Character(spriteSheet3, 300, 100);
-  character4 = new Character(spriteSheet4, 50, 100);
+  for (i = 0; i < count; i++) {
+    character[i] = new Character(random([spriteSheet, spriteSheet2, spriteSheet3]),
+    random(100, 500), random(100, 500));
+  }
 }
 
 function keyPressed() {
   if (keyCode == RIGHT_ARROW) {
-    character.go(1);
-    character2.go(1);
-    character3.go(1);
-    character4.go(1);
+    for (i = 0; i < count; i++) {
+      character[i].go(1);
+    }
   }
   else if (keyCode == LEFT_ARROW) {
-    character.go(-1);
-    character2.go(-1);
-    character3.go(-1);
-    character4.go(-1);
+    for (i = 0; i < count; i++) {
+      character[i].go(-1);
   }
+ }
 }
 
 function keyReleased() {
-  character.stop();
-  character2.stop();
-  character3.stop();
-  character4.stop();
+  for (i = 0; i < count; i++) {
+    character[i].stop();
+ }
 }
-
 function draw() {
   background(255, 255, 255);
-  character.draw();
-  character2.draw();
-  character3.draw();
-  character4.draw();
+  for (i = 0; i < count; i++) {
+    character[i].draw();
+  }
 }
 
 
@@ -65,10 +62,10 @@ class Character {
   scale(this.facing, 1);
 
   if (this.move == 0) {
-    image(this.spriteSheet, 0, 0, 200, 200, 0, 0, 80, 80);
+    image(this.spriteSheet, 0, 0, 100, 100, 0, 0, 80, 80);
   }
   else {
-    image(this.spriteSheet, 0, 0, 200, 200, 80 * (this.sx + 1), 0, 80, 80);
+    image(this.spriteSheet, 0, 0, 100, 100, 80 * (this.sx + 1), 0, 80, 80);
   }
 
   if (frameCount % 5 == 0) {
@@ -88,3 +85,5 @@ class Character {
    this.move = 0;
  }
 }
+
+
